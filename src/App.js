@@ -1,13 +1,13 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import CrossLineBallComponent from './CrossLineBallComponent'
+import CrossBallLineComponent from './CrossBallLineComponent'
 
 function App() {
   return (
     <div className="App">
-      <CrossLineBallComponent>
-      </CrossLineBallComponent>
+      <CrossBallLineComponent>
+      </CrossBallLineComponent>
     </div>
   );
 }

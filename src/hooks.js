@@ -10,7 +10,7 @@ export const useAnimatedScale = (scGap, delay) => {
                 setAnimated(true)
                 var currScale = scale
                 const interval = setInterval(() => {
-                    currScale += scGap
+                    currScale += (scGap / 3)
                     setScale(currScale)
                     if (currScale > 1) {
                         setScale(0)
@@ -48,16 +48,17 @@ export const useStyle = (w, h, scale) => {
     const hSize = h / 3
     const r = Math.min(w, h) / 10
     const getY = (i) => {
-        const sf1 = divideScale(sf, 0, 2)
+        const sf1 = divideScale(sf, 0, 3)
         const si = 1 - 2 * i
-        return h / 2 - sf1 * si * hSize
+        return -sf1 * si * hSize
     }
     const background = '#4CAF50'
+
+    const position = 'absolute'
     return {
         getBallStyle(i) {
-            const y = getY(i) - 2 * r
-            const x = w / 2 - r
-            const position = 'absolute'
+            const y = getY(i) -  r
+            const x = -r
             const left = `${x}px`
             const top = `${y}px`
             const width = `${2 * r}px`
@@ -67,18 +68,20 @@ export const useStyle = (w, h, scale) => {
         },
         getLineStyle(i) {
             const lSize = Math.min(w, h) / 60
-            const y = getY(i)
-            const x = w / 2 - lSize / 2
-            const position = 'absolute'
+            const y = getY(i) * (1 - i)
+            const x = - lSize / 2
             const left = `${x}px`
             const top = `${y}px`
             const width = `${lSize}px`
-            const height = `${hSize * divideScale(sf, 0, 2)}px`
+            const height = `${hSize * divideScale(sf, 0, 3)}px`
             return {position, left, top, width, height, background}
         },
         getMainRotStyle(i) {
-            const WebkitTransform = `rotate(${45 * (1 - 2 * i)}deg)`
-            return {WebkitTransform}
+            const top = `${h / 2}px`
+            const left = `${w / 2}px`
+            const sf1 = divideScale(sf, 1, 3)
+            const WebkitTransform = `rotate(${45 * (1 - 2 * i) * sf1}deg)`
+            return {WebkitTransform, position, top, left}
         }
     }
 }
