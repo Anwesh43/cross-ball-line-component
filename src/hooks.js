@@ -54,7 +54,7 @@ export const useStyle = (w, h, scale) => {
     }
     const background = '#4CAF50'
     return {
-        getBallSize(i) {
+        getBallStyle(i) {
             const y = getY(i) - 2 * r
             const x = w / 2 - r
             const position = 'absolute'
@@ -75,6 +75,10 @@ export const useStyle = (w, h, scale) => {
             const width = `${lSize}px`
             const height = `${hSize * divideScale(sf, 0, 2)}px`
             return {position, left, top, width, height, background}
+        },
+        getMainRotStyle(i) {
+            const WebkitTransform = `rotate(${45 * (1 - 2 * i)}deg)`
+            return {WebkitTransform}
         }
     }
 }
